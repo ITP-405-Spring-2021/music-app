@@ -18,5 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/invoices', [InvoiceController::class, 'index']);
-Route::get('/invoices/{id}', [InvoiceController::class, 'show']);
+Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
+Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');

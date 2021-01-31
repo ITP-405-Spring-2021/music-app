@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <a href="/invoices" class="d-block mb-3">Back to Invoices</a>
+    <a href="{{ route('invoices.index') }}" class="d-block mb-3">Back to Invoices</a>
     <p>Invoice Total: ${{$invoice->total}}</p>
     <table class="table table-striped">
         <thead>
