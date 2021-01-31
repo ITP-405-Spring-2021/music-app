@@ -28,7 +28,7 @@
                         ${{$invoice->total}}
                     </td>
                     <td>
-                        <a href="#">
+                        <a href="/invoices/{{$invoice->id}}">
                             Details
                         </a>
                     </td>
