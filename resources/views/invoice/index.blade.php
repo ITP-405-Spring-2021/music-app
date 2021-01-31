@@ -28,7 +28,7 @@
                         ${{$invoice->total}}
                     </td>
                     <td>
-                        <a href="/invoices/{{$invoice->id}}">
+                        <a href="{{ route('invoices.show', [ 'id' => $invoice->id ]) }}">
                             Details
                         </a>
                     </td>
