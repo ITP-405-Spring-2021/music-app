@@ -38,5 +38,18 @@ class AlbumController extends Controller
             'title' => 'required|max:20',
             'artist' => 'required|exists:artists,id',
         ]);
+
+        DB::table('albums')->insert([
+            'title' => $request->input('title'),
+            'artist_id' => $request->input('artist'),
+        ]);
+
+        $artist = DB::table('artists')
+            ->where('id', '=', $request->input('artist'))
+            ->first();
+
+        return redirect()
+            ->route('albums.index')
+            ->with('success', "Successfully created {$artist->name} - {$request->input('title')}");
     }
 }
