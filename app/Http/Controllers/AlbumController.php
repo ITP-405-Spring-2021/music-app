@@ -22,4 +22,21 @@ class AlbumController extends Controller
             'albums' => $albums,
         ]);
     }
+
+    public function create()
+    {
+        $artists = DB::table('artists')->orderBy('name')->get();
+
+        return view('album.create', [
+            'artists' => $artists,
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|max:20',
+            'artist' => 'required|exists:artists,id',
+        ]);
+    }
 }
