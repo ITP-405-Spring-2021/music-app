@@ -13,7 +13,10 @@
             <div class="col-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="/invoices">Invoices</a>
+                        <a class="nav-link" href="{{ route('albums.index') }}">Albums</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('invoices.index') }}">Invoices</a>
                     </li>
                 </ul>
             </div>
