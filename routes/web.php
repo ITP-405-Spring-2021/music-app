@@ -24,3 +24,5 @@ Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices
 Route::get('/albums', [AlbumController::class, 'index'])->name('albums.index');
 Route::get('/albums/create', [AlbumController::class, 'create'])->name('albums.create');
 Route::post('/albums', [AlbumController::class, 'store'])->name('albums.store');
+Route::get('/albums/{id}/edit', [AlbumController::class, 'edit'])->name('albums.edit');
+Route::post('/albums/{id}', [AlbumController::class, 'update'])->name('albums.update');
