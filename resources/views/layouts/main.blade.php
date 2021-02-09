@@ -13,7 +13,12 @@
             <div class="col-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('invoice.index')}}">
+                        <a class="nav-link" href="{{ route('album.index') }}">
+                            Albums
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('invoice.index') }}">
                             Invoices
                         </a>
                     </li>
@@ -24,6 +29,11 @@
                     <h2>@yield('title')</h2>
                 </header>
                 <main>
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     @yield('content')
                 </main>
             </div>
