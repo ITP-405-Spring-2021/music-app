@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('invoice.index');
 });
 
 Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoice.index');
