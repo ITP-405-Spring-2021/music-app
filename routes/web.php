@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Track;
 use App\Models\Artist;
@@ -30,6 +32,11 @@ Route::get('/albums/create', [AlbumController::class, 'create'])->name('albums.c
 Route::post('/albums', [AlbumController::class, 'store'])->name('albums.store');
 Route::get('/albums/{id}/edit', [AlbumController::class, 'edit'])->name('albums.edit');
 Route::post('/albums/{id}', [AlbumController::class, 'update'])->name('albums.update');
+
+Route::get('/register', [RegistrationController::class, 'index'])->name('registration.index');
+Route::post('/register', [RegistrationController::class, 'register'])->name('registration.create');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+
 
 Route::get('/eloquent', function() {
     // QUERYING

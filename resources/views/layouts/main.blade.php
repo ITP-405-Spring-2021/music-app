@@ -18,6 +18,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('invoices.index') }}">Invoices</a>
                     </li>
+                    @if (Auth::check())
+                        <li class="nav-item">
+                            <a href="{{ route('profile.index') }}" class="nav-link">Profile</a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a href="{{ route('registration.index') }}" class="nav-link">Register</a>
+                        </li>
+                    @endif
                 </ul>
             </div>
             <div class="col-9">
