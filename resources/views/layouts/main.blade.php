@@ -32,6 +32,9 @@
                         <li class="nav-item">
                             <a href="{{ route('registration.index') }}" class="nav-link">Register</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('auth.loginForm') }}" class="nav-link">Login</a>
+                        </li>
                     @endif
                 </ul>
             </div>
@@ -39,6 +42,11 @@
                 <header>
                     <h2>@yield('title')</h2>
                 </header>
+                @if (session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <main>
                     @yield('content')
                 </main>
