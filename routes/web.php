@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use App\Models\Artist;
@@ -78,6 +81,16 @@ Route::get('/albums/create', [AlbumController::class, 'create'])->name('album.cr
 Route::post('/albums', [AlbumController::class, 'store'])->name('album.store');
 Route::get('/albums/{id}/edit', [AlbumController::class, 'edit'])->name('album.edit');
 Route::post('/albums/{id}', [AlbumController::class, 'update'])->name('album.update');
+
+Route::get('/register', [RegistrationController::class, 'index'])->name('registration.index');
+Route::post('/register', [RegistrationController::class, 'register'])->name('registration.create');
+Route::get('/login', [AuthController::class, 'loginForm'])->name('auth.loginForm');
+Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+
+Route::middleware(['custom-auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+});
 
 if (env('APP_ENV') !== 'local') {
     URL::forceScheme('https');
