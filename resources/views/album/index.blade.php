@@ -22,7 +22,7 @@
                         {{ $album->title }}
                     </td>
                     <td>
-                        {{ $album->artist }}
+                        {{ $album->artist->name }}
                     </td>
                     <td>
                         <a href="{{ route('album.edit', [ 'id' => $album->id ]) }}">

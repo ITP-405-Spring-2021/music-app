@@ -4,20 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Album;
 
 class AlbumController extends Controller
 {
     public function index()
     {
-        $albums = DB::table('albums')
-            ->join('artists', 'artists.id', '=', 'albums.artist_id')
-            ->orderBy('artist')
+        $albums = Album::join('artists', 'artists.id', '=', 'albums.artist_id')
+            ->with(['artist'])
+            ->orderBy('artists.name')
             ->orderBy('title')
-            ->get([
-                'albums.id',
-                'albums.title',
-                'artists.name AS artist',
-            ]);
+            ->select('*', 'albums.id as id')
+            ->get();
 
         return view('album.index', [
             'albums' => $albums,
