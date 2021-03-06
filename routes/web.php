@@ -26,8 +26,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
-Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
 Route::get('/albums', [AlbumController::class, 'index'])->name('albums.index');
 Route::get('/albums/create', [AlbumController::class, 'create'])->name('albums.create');
 Route::post('/albums', [AlbumController::class, 'store'])->name('albums.store');
@@ -40,7 +38,12 @@ Route::get('/login', [AuthController::class, 'loginForm'])->name('auth.loginForm
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 
 Route::middleware(['custom-auth'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::middleware(['not-blocked'])->group(function () {
+        Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
+        Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    });
+    Route::view('/blocked', 'blocked')->name('blocked');
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 });
 
