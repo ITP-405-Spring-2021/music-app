@@ -10,4 +10,9 @@ class Role extends Model
     use HasFactory;
 
     protected $fillable = ['slug', 'name'];
+
+    public static function getUser()
+    {
+        return self::where('slug', '=', 'user')->first();
+    }
 }
