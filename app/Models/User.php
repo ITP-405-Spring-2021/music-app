@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return Customer::where('email', '=', $this->email)->count() > 0;
     }
+
+    public function isAdmin()
+    {
+        return $this->role->slug === 'admin';
+    }
 }
