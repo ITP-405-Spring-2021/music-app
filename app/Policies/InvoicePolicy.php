@@ -10,6 +10,20 @@ class InvoicePolicy
 {
     use HandlesAuthorization;
 
+    // Alternatively, you can move this before hook into a global gate
+    // so you don't have to repeat this logic in every policy. See
+    // the commented out gate in the AuthServiceProvider.
+    public function before(User $user)
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        // Don't write it like below. Write it like above.
+        // Otherwise, we will have broken the authorization for non-admins
+        // return $user->isAdmin();
+    }
+
     /**
      * Determine whether the user can view any models.
      *
