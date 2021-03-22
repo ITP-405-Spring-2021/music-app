@@ -26,9 +26,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        Gate::define('view-invoice', function (User $user, Invoice $invoice) {
-            return $user->email === $invoice->customer->email;
-        });
     }
 }
