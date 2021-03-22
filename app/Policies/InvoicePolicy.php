@@ -18,7 +18,7 @@ class InvoicePolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->isCustomer();
     }
 
     /**

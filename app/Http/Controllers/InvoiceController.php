@@ -12,6 +12,8 @@ class InvoiceController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny', Invoice::class);
+
         // $invoices = Invoice::all(); // SLOW because of N+1 queries
         $invoices = Invoice::select('invoices.*')
             ->with(['customer'])
