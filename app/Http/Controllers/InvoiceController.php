@@ -33,9 +33,9 @@ class InvoiceController extends Controller
             'invoiceItems.track.album.artist',
         ])->find($id);
 
-        if (Gate::denies('view-invoice', $invoice)) {
-            abort(403);
-        }
+        // if (Gate::denies('view-invoice', $invoice)) {
+        //     abort(403);
+        // }
 
         // if (!Gate::allows('view-invoice', $invoice)) {
         //     abort(403);
@@ -50,6 +50,16 @@ class InvoiceController extends Controller
         // }
 
         // $this->authorize('view-invoice', $invoice);
+
+        $this->authorize('view', $invoice);
+
+        // if (Gate::denies('view', $invoice)) {
+        //     abort(403);
+        // }
+
+        // if (Auth::user()->cannot('view', $invoice)) {
+        //     abort(403);
+        // }
 
         return view('invoice.show', [
             'invoice' => $invoice,
