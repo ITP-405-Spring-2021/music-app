@@ -45,4 +45,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function isCustomer()
+    {
+        return Customer::where('email', '=', $this->email)->count() > 0;
+    }
 }
