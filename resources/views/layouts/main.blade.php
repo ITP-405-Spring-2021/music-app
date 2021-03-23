@@ -22,11 +22,15 @@
                             Playlists
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('invoice.index') }}">
-                            Invoices
-                        </a>
-                    </li>
+
+                    @can ('viewAny', App\Models\Invoice::class)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('invoice.index') }}">
+                                Invoices
+                            </a>
+                        </li>
+                    @endcan
+
                     @if (Auth::check())
                         <li class="nav-item">
                             <a href="{{ route('profile.index') }}" class="nav-link">Profile</a>
