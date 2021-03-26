@@ -11,6 +11,7 @@ use App\Models\Artist;
 use App\Models\Album;
 use App\Models\Genre;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\NewAlbum;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,9 +29,12 @@ Route::get('/', function () {
 });
 
 Route::get('/mail', function () {
-    Mail::raw('What is your favorite framework?', function ($message) {
-        $message->to('dtang@usc.edu')->subject('Hello David');
-    });
+    // Mail::raw('What is your favorite framework?', function ($message) {
+    //     $message->to('dtang@usc.edu')->subject('Hello David');
+    // });
+
+    $someAlbum = Album::first();
+    Mail::to('dtang@usc.edu')->send(new NewAlbum($someAlbum));
 });
 
 Route::get('/albums', [AlbumController::class, 'index'])->name('albums.index');
