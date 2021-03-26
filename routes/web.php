@@ -10,6 +10,7 @@ use App\Models\Track;
 use App\Models\Artist;
 use App\Models\Album;
 use App\Models\Genre;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,12 @@ use App\Models\Genre;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/mail', function () {
+    Mail::raw('What is your favorite framework?', function ($message) {
+        $message->to('dtang@usc.edu')->subject('Hello David');
+    });
 });
 
 Route::get('/albums', [AlbumController::class, 'index'])->name('albums.index');
