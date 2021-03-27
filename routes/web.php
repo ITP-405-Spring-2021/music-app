@@ -5,6 +5,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
+use App\Jobs\AnnounceNewAlbum;
 use Illuminate\Support\Facades\Route;
 use App\Models\Track;
 use App\Models\Artist;
@@ -33,16 +34,11 @@ Route::get('/mail', function () {
     //     $message->to('dtang@usc.edu')->subject('Hello David');
     // });
 
-    dispatch(function () {
-        $masterOfPuppets = Album::find(152);
-
-        logger($masterOfPuppets);
-
-        Mail::to('dtang@usc.edu')->send(new NewAlbum($masterOfPuppets));
-    });
+    $masterOfPuppets = Album::find(152);
+    dispatch(new AnnounceNewAlbum($masterOfPuppets));
 
     $jaggedLittlePill = Album::find(6);
-    Mail::to('itp@usc.edu')->queue(new NewAlbum($jaggedLittlePill));
+    AnnounceNewAlbum::dispatch($jaggedLittlePill);
 });
 
 Route::get('/albums', [AlbumController::class, 'index'])->name('albums.index');
