@@ -33,8 +33,16 @@ Route::get('/mail', function () {
     //     $message->to('dtang@usc.edu')->subject('Hello David');
     // });
 
-    $someAlbum = Album::first();
-    Mail::to('dtang@usc.edu')->send(new NewAlbum($someAlbum));
+    dispatch(function () {
+        $masterOfPuppets = Album::find(152);
+
+        logger($masterOfPuppets);
+
+        Mail::to('dtang@usc.edu')->send(new NewAlbum($masterOfPuppets));
+    });
+
+    $jaggedLittlePill = Album::find(6);
+    Mail::to('itp@usc.edu')->queue(new NewAlbum($jaggedLittlePill));
 });
 
 Route::get('/albums', [AlbumController::class, 'index'])->name('albums.index');
