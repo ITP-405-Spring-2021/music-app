@@ -12,6 +12,7 @@ use App\Models\Album;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewAlbum;
+use Exception;
 
 class AnnounceNewAlbum implements ShouldQueue
 {
@@ -39,7 +40,11 @@ class AnnounceNewAlbum implements ShouldQueue
         $users = User::all();
 
         foreach ($users as $user) {
-            Mail::to($user->email)->send(new NewAlbum($this->album));
+            if ($user->email) {
+                Mail::to($user->email)->send(new NewAlbum($this->album));
+            } else {
+                throw new Exception("User {$user->id} is missing an email");
+            }
         }
     }
 }
