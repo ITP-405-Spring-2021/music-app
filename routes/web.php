@@ -6,12 +6,37 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ProfileController;
+use App\Jobs\AnnounceNewAlbum;
+use App\Mail\NewAlbum;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use App\Models\Artist;
 use App\Models\Track;
 use App\Models\Genre;
 use App\Models\Album;
+use Illuminate\Support\Facades\Mail;
+
+Route::get('/mail', function () {
+    // Mail::raw('What is your favorite framework?', function ($message) {
+    //     $message->to('dtang@usc.edu')->subject('Hello David');
+    // });
+
+    // dispatch(function () {
+    //     $masterOfPuppets = Album::find(152);
+    //     Mail::to('dtang@usc.edu')->send(new NewAlbum($masterOfPuppets));
+    // });
+
+    // $jaggedLittlePill = Album::find(6);
+    // Mail::to('dtang@usc.edu')->queue(new NewAlbum($jaggedLittlePill));
+
+    $jaggedLittlePill = Album::find(6);
+    AnnounceNewAlbum::dispatch($jaggedLittlePill);
+    // dispatch(new AnnounceNewAlbum($jaggedLittlePill)); // same as above
+
+    // return view('email.new-album', [
+    //     'album' => Album::first(),
+    // ]);
+});
 
 Route::get('/eloquent', function() {
     // QUERYING
