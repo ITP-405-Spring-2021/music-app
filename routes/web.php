@@ -5,6 +5,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
+use App\Http\Resources\AlbumResource;
 use App\Jobs\AnnounceNewAlbum;
 use Illuminate\Support\Facades\Route;
 use App\Models\Track;
@@ -23,6 +24,11 @@ Route::prefix('api')->group(function () {
         // return Album::with('artist')->paginate();
 
         return Album::with('artist')->simplePaginate();
+    });
+
+    Route::get('/albums/{id}', function ($id) {
+        $album = Album::with(['artist'])->find($id);
+        return new AlbumResource($album);
     });
 });
 
