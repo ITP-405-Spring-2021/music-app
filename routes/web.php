@@ -14,6 +14,18 @@ use App\Models\Genre;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewAlbum;
 
+Route::prefix('api')->group(function () {
+    Route::get('/albums', function () {
+        // return Album::all();
+
+        // return Album::with('artist')->get();
+
+        // return Album::with('artist')->paginate();
+
+        return Album::with('artist')->simplePaginate();
+    });
+});
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
