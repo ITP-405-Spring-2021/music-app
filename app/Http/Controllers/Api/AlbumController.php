@@ -93,7 +93,7 @@ class AlbumController extends Controller
         if ($trackCount > 0) {
             return response()->json([
                 'error' => 'Only albums without tracks can be deleted.',
-            ]);
+            ], 400);
         }
 
         $album->delete();
