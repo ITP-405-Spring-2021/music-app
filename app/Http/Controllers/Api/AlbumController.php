@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Album;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class AlbumController extends Controller
 {
@@ -75,11 +76,27 @@ class AlbumController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Album  $album
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Album $album)
+    public function destroy($id)
     {
-        //
+        $album = Album::find($id);
+
+        if (!$album) {
+            return response()->json([
+                'error' => 'Album not found',
+            ]);
+        }
+
+        $trackCount = DB::table('tracks')->where('album_id', '=', $id)->count();
+
+        if ($trackCount > 0) {
+            return response()->json([
+                'error' => 'Only albums without tracks can be deleted.',
+            ]);
+        }
+
+        $album->delete();
+        return response('', 200);
     }
 }
