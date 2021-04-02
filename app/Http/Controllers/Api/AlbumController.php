@@ -68,9 +68,29 @@ class AlbumController extends Controller
      * @param  \App\Models\Album  $album
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Album $album)
+    public function update(Request $request, $id)
     {
-        //
+        $album = Album::find($id);
+
+        if (!$album) {
+            return response()->json([
+                'error' => 'Album not found',
+            ], 404);
+        }
+
+        $validation = Validator::make($request->all(), [
+            'title' => 'required',
+            'artist_id' => 'required',
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json([
+                'errors' => $validation->errors(),
+            ], 422);
+        }
+
+        $album->update($request->all());
+        return $album;
     }
 
     /**
