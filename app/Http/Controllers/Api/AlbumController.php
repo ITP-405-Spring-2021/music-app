@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Album;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AlbumController extends Controller
 {
@@ -27,7 +28,18 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'title' => 'required',
+            'artist_id' => 'required',
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json([
+                'errors' => $validation->errors(),
+            ], 422);
+        }
+
+        return Album::create($request->all());
     }
 
     /**
