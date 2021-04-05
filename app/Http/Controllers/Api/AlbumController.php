@@ -35,16 +35,8 @@ class AlbumController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Album $album)
     {
-        $album = Album::find($id);
-
-        if (!$album) {
-            return response()->json([
-                'error' => 'Album not found',
-            ], 404);
-        }
-
         return $album;
     }
 
