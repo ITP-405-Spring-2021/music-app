@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Album;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class AlbumController extends Controller
 {
@@ -73,6 +74,15 @@ class AlbumController extends Controller
      */
     public function destroy(Album $album)
     {
-        //
+        $trackCount = DB::table('tracks')->where('album_id', '=', $album->id)->count();
+
+        if ($trackCount > 0) {
+            return response()->json([
+                'error' => 'Only albums without tracks can be deleted.',
+            ], 400);
+        }
+
+        $album->delete();
+        return response(null, 204);
     }
 }
