@@ -38,7 +38,7 @@ class AlbumController extends Controller
      */
     public function show(Album $album)
     {
-        //
+        return $album;
     }
 
     /**
