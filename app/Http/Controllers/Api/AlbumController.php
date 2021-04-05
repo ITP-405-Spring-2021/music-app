@@ -45,6 +45,7 @@ class AlbumController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \App\Models\Album  $album
      * @return \Illuminate\Http\Response
      */
     public function show(Album $album)
