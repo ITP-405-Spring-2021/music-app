@@ -48,16 +48,8 @@ class AlbumController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Album $album)
     {
-        $album = Album::find($id);
-
-        if (!$album) {
-            return response()->json([
-                'error' => 'Album not found',
-            ], 404);
-        }
-
         return $album;
     }
 
@@ -98,17 +90,9 @@ class AlbumController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Album $album)
     {
-        $album = Album::find($id);
-
-        if (!$album) {
-            return response()->json([
-                'error' => 'Album not found',
-            ]);
-        }
-
-        $trackCount = DB::table('tracks')->where('album_id', '=', $id)->count();
+        $trackCount = DB::table('tracks')->where('album_id', '=', $album->id)->count();
 
         if ($trackCount > 0) {
             return response()->json([
@@ -117,6 +101,6 @@ class AlbumController extends Controller
         }
 
         $album->delete();
-        return response('', 200);
+        return response(null, 204);
     }
 }
